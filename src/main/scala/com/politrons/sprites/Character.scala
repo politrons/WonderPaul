@@ -1,8 +1,8 @@
-package com.politrons
+package com.politrons.sprites
 
-import java.awt.{Image, RenderingHints}
 import java.awt.event.KeyEvent
 import java.awt.image.BufferedImage
+import java.awt.{Image, RenderingHints}
 import javax.swing.ImageIcon
 
 

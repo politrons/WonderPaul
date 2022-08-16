@@ -1,25 +1,23 @@
-package com.politrons
+package com.politrons.engine
+
+import com.politrons.sprites.Character
 
 import java.awt._
-import java.awt.event.ActionEvent
-import java.awt.event.ActionListener
-import java.awt.event.KeyAdapter
-import java.awt.event.KeyEvent
+import java.awt.event.{ActionEvent, ActionListener, KeyAdapter, KeyEvent}
 import javax.swing._
 
 
-class Level() extends JLabel with ActionListener {
+class CharacterEngine() extends JLabel with ActionListener {
 
   val character = new Character()
 
   init()
 
-  private def init(): Unit ={
+  private def init(): Unit = {
     addKeyListener(new KeyListener)
     setFocusable(true)
-    this.setIcon(character.imageIcon)
-    this.setLocation(40, 60)
-    this.setSize(this.getPreferredSize)
+    setIcon(character.imageIcon)
+    setSize(this.getPreferredSize)
     setFrameDelay()
   }
 
