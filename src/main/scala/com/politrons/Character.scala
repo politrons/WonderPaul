@@ -1,8 +1,8 @@
 package com.politrons
 
-import java.awt.Image
+import java.awt.{Image, RenderingHints}
 import java.awt.event.KeyEvent
-import java.util
+import java.awt.image.BufferedImage
 import javax.swing.ImageIcon
 
 
@@ -11,22 +11,22 @@ class Character() {
   private var frame = 0
   private var dx = 0
   private var dy = 0
-  private var x = 40
-  private var y = 60
-  private var w = 0
-  private var h = 0
+  private var x = 250
+  private var y = 250
+  private var width = 0
+  private var height = 0
   var image: Image = null
   var imageIcon: ImageIcon = null
 
   val images = Map(
-    "left-" + 1->new ImageIcon("src/main/resources/pirate-left-1.png"),
-    "left-" + 2->new ImageIcon("src/main/resources/pirate-left-2.png"),
-    "right-" + 1 ->new ImageIcon("src/main/resources/pirate-right-1.png"),
+    "left-" + 1 -> new ImageIcon("src/main/resources/pirate-left-1.png"),
+    "left-" + 2 -> new ImageIcon("src/main/resources/pirate-left-2.png"),
+    "right-" + 1 -> new ImageIcon("src/main/resources/pirate-right-1.png"),
     "right-" + 2 -> new ImageIcon("src/main/resources/pirate-right-2.png"),
     "up-" + 1 -> new ImageIcon("src/main/resources/pirate-up-1.png"),
     "up-" + 2 -> new ImageIcon("src/main/resources/pirate-up-2.png"),
-    "down-" + 1 ->new ImageIcon("src/main/resources/pirate-down-1.png"),
-    "down-" + 2 ->  new ImageIcon("src/main/resources/pirate-down-2.png")
+    "down-" + 1 -> new ImageIcon("src/main/resources/pirate-down-1.png"),
+    "down-" + 2 -> new ImageIcon("src/main/resources/pirate-down-2.png")
   )
 
   loadImage()
@@ -34,12 +34,23 @@ class Character() {
   private def loadImage(): Unit = {
     imageIcon = images("left-1")
     image = imageIcon.getImage
-    w = image.getWidth(null)
-    h = image.getHeight(null)
+    image = scaleImage(image, 40, 40)
+    imageIcon = new ImageIcon(image)
+    width = image.getWidth(null)
+    height = image.getHeight(null)
+  }
+
+  private def scaleImage(srcImg: Image, w: Int, h: Int): Image = {
+    val resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB)
+    val g2 = resizedImg.createGraphics
+    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR)
+    g2.drawImage(srcImg, 0, 0, w, h, null)
+    g2.dispose()
+    resizedImg
   }
 
   private def extractImage(frame: String): Unit = {
-    imageIcon = images(frame)
+    imageIcon = new ImageIcon(scaleImage(images(frame).getImage, 40, 40))
   }
 
   def move(): Unit = {
@@ -52,22 +63,19 @@ class Character() {
   def getY: Int = y
 
   def keyPressed(e: KeyEvent): Unit = {
-    val key = e.getKeyCode
-    if (key == KeyEvent.VK_LEFT) {
-      dx = -2
-      extractImage("left-" + increaseFrame)
-    }
-    if (key == KeyEvent.VK_RIGHT) {
-      dx = 2
-      extractImage("right-" + increaseFrame)
-    }
-    if (key == KeyEvent.VK_UP) {
-      dy = -2
-      extractImage("up-" + increaseFrame)
-    }
-    if (key == KeyEvent.VK_DOWN) {
-      dy = 2
-      extractImage("down-" + increaseFrame)
+    e.getKeyCode match {
+      case KeyEvent.VK_LEFT =>
+        dx = -2
+        extractImage("left-" + increaseFrame)
+      case KeyEvent.VK_RIGHT =>
+        dx = 2
+        extractImage("right-" + increaseFrame)
+      case KeyEvent.VK_UP =>
+        dy = -2
+        extractImage("up-" + increaseFrame)
+      case KeyEvent.VK_DOWN =>
+        dy = 2
+        extractImage("down-" + increaseFrame)
     }
   }
 
@@ -78,10 +86,11 @@ class Character() {
   }
 
   def keyReleased(e: KeyEvent): Unit = {
-    val key = e.getKeyCode
-    if (key == KeyEvent.VK_LEFT) dx = 0
-    if (key == KeyEvent.VK_RIGHT) dx = 0
-    if (key == KeyEvent.VK_UP) dy = 0
-    if (key == KeyEvent.VK_DOWN) dy = 0
+    e.getKeyCode match {
+      case KeyEvent.VK_LEFT => dx = 0
+      case KeyEvent.VK_RIGHT => dx = 0
+      case KeyEvent.VK_UP => dy = 0
+      case KeyEvent.VK_DOWN => dy = 0
+    }
   }
 }

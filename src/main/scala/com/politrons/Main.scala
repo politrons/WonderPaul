@@ -1,23 +1,20 @@
 package com.politrons
 
 import java.awt._
-import java.io.IOException
 import javax.swing._
 
 
-object Main {
-  def main(args: Array[String]): Unit = {
-    EventQueue.invokeLater(() => {
-        val ex = new Main()
-        ex.setVisible(true)
-    })
-  }
+object Main extends App {
+  EventQueue.invokeLater(() => {
+    val ex = new Main()
+    ex.setVisible(true)
+  })
 }
 
 class Main extends JFrame {
+
   initGame()
 
-  @throws[IOException]
   private def initGame(): Unit = {
     this.add(new Level)
     this.add(new Background, BorderLayout.CENTER)

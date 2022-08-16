@@ -18,6 +18,7 @@ class Level() extends JLabel with ActionListener {
     addKeyListener(new KeyListener)
     setFocusable(true)
     this.setIcon(character.imageIcon)
+    this.setLocation(40, 60)
     this.setSize(this.getPreferredSize)
     setFrameDelay()
   }
@@ -35,6 +36,7 @@ class Level() extends JLabel with ActionListener {
   override def actionPerformed(e: ActionEvent): Unit = {
     character.move()
     setIcon(character.imageIcon)
+    println(s"Position X:${character.getX} Y:${character.getY}")
     setLocation(character.getX, character.getY)
   }
 
