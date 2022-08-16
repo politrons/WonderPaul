@@ -17,35 +17,29 @@ class Character() {
   private var h = 0
   var image: Image = null
   var imageIcon: ImageIcon = null
-  var images = new util.HashMap[String, ImageIcon]
+
+  val images = Map(
+    "left-" + 1->new ImageIcon("src/main/resources/pirate-left-1.png"),
+    "left-" + 2->new ImageIcon("src/main/resources/pirate-left-2.png"),
+    "right-" + 1 ->new ImageIcon("src/main/resources/pirate-right-1.png"),
+    "right-" + 2 -> new ImageIcon("src/main/resources/pirate-right-2.png"),
+    "up-" + 1 -> new ImageIcon("src/main/resources/pirate-up-1.png"),
+    "up-" + 2 -> new ImageIcon("src/main/resources/pirate-up-2.png"),
+    "down-" + 1 ->new ImageIcon("src/main/resources/pirate-down-1.png"),
+    "down-" + 2 ->  new ImageIcon("src/main/resources/pirate-down-2.png")
+  )
 
   loadImage()
 
   private def loadImage(): Unit = {
-    val iconLeft1 = new ImageIcon("src/main/resources/pirate-left-1.png")
-    val iconLeft2 = new ImageIcon("src/main/resources/pirate-left-2.png")
-    val iconRight1 = new ImageIcon("src/main/resources/pirate-right-1.png")
-    val iconRight2 = new ImageIcon("src/main/resources/pirate-right-2.png")
-    val iconUp1 = new ImageIcon("src/main/resources/pirate-up-1.png")
-    val iconUp2 = new ImageIcon("src/main/resources/pirate-up-2.png")
-    val iconDown1 = new ImageIcon("src/main/resources/pirate-down-1.png")
-    val iconDown2 = new ImageIcon("src/main/resources/pirate-down-2.png")
-    images.put("left-" + 1, iconLeft1)
-    images.put("left-" + 2, iconLeft2)
-    images.put("right-" + 1, iconRight1)
-    images.put("right-" + 2, iconRight2)
-    images.put("up-" + 1, iconUp1)
-    images.put("up-" + 2, iconUp2)
-    images.put("down-" + 1, iconDown1)
-    images.put("down-" + 2, iconDown2)
-    imageIcon = iconRight1
-    image = iconRight1.getImage
+    imageIcon = images("left-1")
+    image = imageIcon.getImage
     w = image.getWidth(null)
     h = image.getHeight(null)
   }
 
   private def extractImage(frame: String): Unit = {
-    imageIcon = images.get(frame)
+    imageIcon = images(frame)
   }
 
   def move(): Unit = {
