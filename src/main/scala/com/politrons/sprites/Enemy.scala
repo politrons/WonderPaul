@@ -6,13 +6,11 @@ import java.awt.{Image, RenderingHints}
 import javax.swing.ImageIcon
 
 
-class Enemy() {
+class Enemy(var x:Integer, var y:Integer) {
 
   private var frame = 0
   private var dx = 0
   private var dy = 0
-  var x = 250
-  var y = 500
   private var width = 0
   private var height = 0
   var image: Image = null

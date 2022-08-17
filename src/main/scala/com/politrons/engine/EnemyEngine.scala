@@ -3,22 +3,18 @@ package com.politrons.engine
 import com.politrons.sprites.Enemy
 
 import java.awt._
-import java.awt.event.{ActionEvent, ActionListener, KeyEvent}
-import java.util.concurrent.{Executor, Executors}
 import javax.swing._
 import scala.collection._
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 
-class EnemyEngine() extends JLabel {
+class EnemyEngine(var xPos: Integer,
+                  var yPos: Integer,
+                  val movePattern: Seq[String]
+                 ) extends JLabel {
 
-  val enemy = new Enemy()
-
-  val movePattern: Seq[String] = immutable.List(
-    "left","left","left","left","left","left",
-    "right","right","right","right","right","right"
-  )
+  val enemy = new Enemy(xPos, yPos)
 
   init()
 
@@ -36,7 +32,7 @@ class EnemyEngine() extends JLabel {
   def artificialIntelligenceAction(): Future[Unit] = {
     Future {
       while (true) {
-        movePattern.foreach(move =>{
+        movePattern.foreach(move => {
           enemy.artificialIntelligenceKeyPressed(move)
           setEnemyPosition()
           Thread.sleep(500)
