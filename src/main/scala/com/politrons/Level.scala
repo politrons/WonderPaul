@@ -44,22 +44,23 @@ class Level extends JFrame {
     "right", "right", "right", "right", "right", "right", "right", "right", "right", "right", "right", "right"
   )
 
+  val heart1 = new HeartEngine(100,10)
+  val heart2 = new HeartEngine(70,10)
+  val heart3 = new HeartEngine(40,10)
+  val enemyEngine1 = new EnemyEngine("Enemy1", 250, 400, enemy1MovePattern)
+  val enemyEngine2 = new EnemyEngine("Enemy1",700, 400, enemy2MovePattern)
+  val enemyEngine3 = new EnemyEngine("Enemy1",546, 162, enemy3MovePattern)
+  val characterEngine = new CharacterEngine
+
   initGame()
 
   private def initGame(): Unit = {
-    val heart1 = new HeartEngine(100,10)
     this.add(heart1)
-    val heart2 = new HeartEngine(70,10)
     this.add(heart2)
-    val heart3 = new HeartEngine(40,10)
     this.add(heart3)
-    val enemyEngine1 = new EnemyEngine("Enemy1", 250, 400, enemy1MovePattern)
     this.add(enemyEngine1)
-    val enemyEngine2 = new EnemyEngine("Enemy1",700, 400, enemy2MovePattern)
     this.add(enemyEngine2)
-    val enemyEngine3 = new EnemyEngine("Enemy1",546, 162, enemy3MovePattern)
     this.add(enemyEngine3)
-    val characterEngine = new CharacterEngine
     this.add(new Background(characterEngine), BorderLayout.CENTER)
     this.setResizable(false)
     this.pack()
@@ -68,13 +69,12 @@ class Level extends JFrame {
     setLocationRelativeTo(null)
     setResizable(false)
     setDefaultCloseOperation(3)
-    collisionEngine(enemyEngine1, enemyEngine2, enemyEngine3, characterEngine)
+    collisionEngine()
   }
 
-  private def collisionEngine(enemyEngine1: EnemyEngine,
-                              enemyEngine2: EnemyEngine,
-                              enemyEngine3: EnemyEngine,
-                              characterEngine: CharacterEngine) = {
+
+
+  private def collisionEngine() = {
     Future {
       val deviation = 10
       while (true) {
@@ -91,6 +91,16 @@ class Level extends JFrame {
         println(s"yComp:$yComp")
 
         if (xComp <= deviation && yComp <= deviation) {
+
+          characterEngine.live match {
+            case 3 => heart3.setVisible(false)
+            case 2 => heart2.setVisible(false)
+            case 1 => heart1.setVisible(false)
+
+          }
+          characterEngine.live-=1
+          characterEngine.character.dead=true
+
           println("###############BOOOOOOOOOOMMMMM#################")
         }
         Thread.sleep(500)

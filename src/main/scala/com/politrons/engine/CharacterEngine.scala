@@ -7,7 +7,7 @@ import java.awt.event.{ActionEvent, ActionListener, KeyAdapter, KeyEvent}
 import javax.swing._
 
 
-class CharacterEngine() extends JLabel with ActionListener {
+class CharacterEngine(var live:Int=3) extends JLabel with ActionListener {
 
   val character = new Character()
 

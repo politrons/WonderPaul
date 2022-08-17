@@ -12,7 +12,6 @@ class Heart(var x:Integer, var y:Integer) {
   var image: Image = new ImageIcon("src/main/resources/live/heart.png").getImage
   var imageIcon: ImageIcon = new ImageIcon("src/main/resources/live/heart.png")
 
-
   loadImage()
 
   private def loadImage(): Unit = {

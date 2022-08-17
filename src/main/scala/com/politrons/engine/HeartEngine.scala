@@ -7,7 +7,8 @@ import javax.swing._
 
 
 class HeartEngine(var xPos: Integer,
-                  var yPos: Integer) extends JLabel {
+                  var yPos: Integer,
+                  var heartDisable:Boolean=false) extends JLabel {
 
   val heart = new Heart(xPos, yPos)
 

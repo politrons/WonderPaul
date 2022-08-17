@@ -6,7 +6,7 @@ import java.awt.{Image, RenderingHints}
 import javax.swing.ImageIcon
 
 
-class Character() {
+class Character(var dead:Boolean=false) {
 
   private var frame = 0
   private var dx = 0
@@ -54,8 +54,14 @@ class Character() {
   }
 
   def move(): Unit = {
-    x += dx
-    y += dy
+    if(dead){
+      x=250
+      y=250
+      dead=false
+    }else{
+      x += dx
+      y += dy
+    }
   }
 
   def keyPressed(e: KeyEvent): Unit = {
