@@ -1,6 +1,5 @@
 package com.politrons.sprites
 
-import java.awt.event.KeyEvent
 import java.awt.image.BufferedImage
 import java.awt.{Image, RenderingHints}
 import javax.swing.ImageIcon
@@ -70,6 +69,9 @@ class Enemy(var x:Integer, var y:Integer) {
       case "down" =>
         dy = 5
         extractImage("down-" + increaseFrame)
+      case "stop" =>
+        dx = 0
+        dy = 0
     }
   }
 

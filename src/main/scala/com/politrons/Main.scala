@@ -27,12 +27,28 @@ class Main extends JFrame {
     "up", "up", "up", "up", "up", "up", "up", "up", "up", "up", "up", "up"
   )
 
+  val enemy3MovePattern: Seq[String] = immutable.List(
+    "stop",
+    "down", "down", "down", "down", "down", "down", "down", "down", "down", "down", "down", "down",
+    "down", "down", "down", "down", "down", "down", "down", "down", "down", "down", "down", "down",
+    "down", "down", "down", "down", "down", "down", "down", "down", "down", "down", "down", "down",
+    "up", "up", "up", "up", "up", "up", "up", "up", "up", "up", "up", "up",
+    "up", "up", "up", "up", "up", "up", "up", "up", "up", "up", "up", "up",
+    "up", "up", "up", "up", "up", "up", "up", "up", "up", "up", "up", "up",
+    "stop",
+    "left", "left", "left", "left", "left", "left", "left", "left", "left", "left", "left", "left",
+    "left", "left", "left", "left", "left", "left", "left", "left", "left", "left", "left", "left",
+    "right", "right", "right", "right", "right", "right", "right", "right", "right", "right", "right", "right",
+    "right", "right", "right", "right", "right", "right", "right", "right", "right", "right", "right", "right"
+  )
+
   initGame()
 
   private def initGame(): Unit = {
     this.add(new CharacterEngine)
-    this.add(new EnemyEngine(250,400,enemy1MovePattern ))
-    this.add(new EnemyEngine(700,400,enemy2MovePattern ))
+    this.add(new EnemyEngine(250, 400, enemy1MovePattern))
+    this.add(new EnemyEngine(700, 400, enemy2MovePattern))
+    this.add(new EnemyEngine(546, 162, enemy3MovePattern))
     this.add(new Background, BorderLayout.CENTER)
     this.setResizable(false)
     this.pack()
