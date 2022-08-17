@@ -27,10 +27,6 @@ class CharacterEngine(var live:Int=3) extends JLabel with ActionListener {
     timer.start()
   }
 
-  override def paintComponent(g: Graphics): Unit = {
-    super.paintComponent(g)
-  }
-
   override def actionPerformed(e: ActionEvent): Unit = {
     character.move()
     setIcon(character.imageIcon)

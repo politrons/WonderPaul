@@ -78,6 +78,7 @@ class Character(var dead:Boolean=false) {
       case KeyEvent.VK_DOWN =>
         dy = 2
         extractImage("down-" + increaseFrame)
+      case key:_ => println(s"Key $key not implemented")
     }
   }
 

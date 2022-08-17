@@ -26,10 +26,6 @@ class EnemyEngine(var name:String,
     artificialIntelligenceAction()
   }
 
-  override def paintComponent(g: Graphics): Unit = {
-    super.paintComponent(g)
-  }
-
   def artificialIntelligenceAction(): Future[Unit] = {
     Future {
       while (true) {
