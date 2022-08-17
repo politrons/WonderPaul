@@ -1,5 +1,6 @@
 package com.politrons.sprites
 
+import java.awt.event.KeyEvent
 import java.awt.image.BufferedImage
 import java.awt.{Image, RenderingHints}
 import javax.swing.ImageIcon
@@ -56,6 +57,22 @@ class Enemy() {
 
   def getY: Int = y
 
+  def artificialIntelligenceKeyPressed(e: String): Unit = {
+    e match {
+      case "left" =>
+        dx = -2
+        extractImage("left-" + increaseFrame)
+      case "right" =>
+        dx = 2
+        extractImage("right-" + increaseFrame)
+      case "up" =>
+        dy = -2
+        extractImage("up-" + increaseFrame)
+      case "down" =>
+        dy = 2
+        extractImage("down-" + increaseFrame)
+    }
+  }
 
   private def increaseFrame = {
     if (frame == 2) frame = 1
