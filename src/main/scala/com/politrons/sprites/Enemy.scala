@@ -11,8 +11,8 @@ class Enemy() {
   private var frame = 0
   private var dx = 0
   private var dy = 0
-  private var x = 250
-  private var y = 500
+  var x = 250
+  var y = 500
   private var width = 0
   private var height = 0
   var image: Image = null
@@ -53,23 +53,24 @@ class Enemy() {
     imageIcon = new ImageIcon(scaleImage(images(frame).getImage, 40, 40))
   }
 
-  def getX: Int = x
-
-  def getY: Int = y
+  def move(): Unit = {
+    x += dx
+    y += dy
+  }
 
   def artificialIntelligenceKeyPressed(e: String): Unit = {
     e match {
       case "left" =>
-        dx = -2
+        dx = -5
         extractImage("left-" + increaseFrame)
       case "right" =>
-        dx = 2
+        dx = 5
         extractImage("right-" + increaseFrame)
       case "up" =>
-        dy = -2
+        dy = -5
         extractImage("up-" + increaseFrame)
       case "down" =>
-        dy = 2
+        dy = 5
         extractImage("down-" + increaseFrame)
     }
   }

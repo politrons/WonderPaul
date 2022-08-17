@@ -6,6 +6,7 @@ import java.awt._
 import java.awt.event.{ActionEvent, ActionListener, KeyEvent}
 import java.util.concurrent.{Executor, Executors}
 import javax.swing._
+import scala.collection._
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -13,6 +14,11 @@ import scala.concurrent.ExecutionContext.Implicits.global
 class EnemyEngine() extends JLabel {
 
   val enemy = new Enemy()
+
+  val movePattern: Seq[String] = immutable.List(
+    "left","left","left","left","left","left",
+    "right","right","right","right","right","right"
+  )
 
   init()
 
@@ -30,37 +36,19 @@ class EnemyEngine() extends JLabel {
   def artificialIntelligenceAction(): Future[Unit] = {
     Future {
       while (true) {
-        enemy.artificialIntelligenceKeyPressed("left")
-        setEnemyPosition
-        Thread.sleep(500)
-        enemy.artificialIntelligenceKeyPressed("left")
-        setEnemyPosition
-        Thread.sleep(500)
-        enemy.artificialIntelligenceKeyPressed("left")
-        setEnemyPosition
-        Thread.sleep(500)
-        enemy.artificialIntelligenceKeyPressed("up")
-        setEnemyPosition
-        Thread.sleep(500)
-        enemy.artificialIntelligenceKeyPressed("down")
-        setEnemyPosition
-        Thread.sleep(500)
-        enemy.artificialIntelligenceKeyPressed("right")
-        setEnemyPosition
-        Thread.sleep(500)
-        enemy.artificialIntelligenceKeyPressed("right")
-        setEnemyPosition
-        Thread.sleep(500)
-        enemy.artificialIntelligenceKeyPressed("right")
-        setEnemyPosition
-        Thread.sleep(500)
+        movePattern.foreach(move =>{
+          enemy.artificialIntelligenceKeyPressed(move)
+          setEnemyPosition()
+          Thread.sleep(500)
+        })
       }
     }
   }
 
-  private def setEnemyPosition = {
+  private def setEnemyPosition(): Unit = {
+    enemy.move()
     setIcon(enemy.imageIcon)
-    println(s"Position X:${enemy.getX} Y:${enemy.getY}")
-    setLocation(enemy.getX, enemy.getY)
+    println(s"Enemy Position X:${enemy.x} Y:${enemy.y}")
+    setLocation(enemy.x, enemy.y)
   }
 }

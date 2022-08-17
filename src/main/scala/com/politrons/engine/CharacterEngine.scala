@@ -34,7 +34,7 @@ class CharacterEngine() extends JLabel with ActionListener {
   override def actionPerformed(e: ActionEvent): Unit = {
     character.move()
     setIcon(character.imageIcon)
-    println(s"Position X:${character.getX} Y:${character.getY}")
+    println(s"Character Position X:${character.getX} Y:${character.getY}")
     setLocation(character.getX, character.getY)
   }
 
