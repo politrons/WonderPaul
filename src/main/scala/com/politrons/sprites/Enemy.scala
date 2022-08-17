@@ -1,5 +1,7 @@
 package com.politrons.sprites
 
+import com.politrons.sprites.SpriteUtils.{changeImageIcon, scaleImage}
+
 import java.awt.image.BufferedImage
 import java.awt.{Image, RenderingHints}
 import javax.swing.ImageIcon
@@ -37,19 +39,6 @@ class Enemy(var x:Integer, var y:Integer) {
     height = image.getHeight(null)
   }
 
-  private def scaleImage(srcImg: Image, w: Int, h: Int): Image = {
-    val resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB)
-    val g2 = resizedImg.createGraphics
-    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR)
-    g2.drawImage(srcImg, 0, 0, w, h, null)
-    g2.dispose()
-    resizedImg
-  }
-
-  private def extractImage(frame: String): Unit = {
-    imageIcon = new ImageIcon(scaleImage(images(frame).getImage, 40, 40))
-  }
-
   def move(): Unit = {
     x += dx
     y += dy
@@ -59,16 +48,16 @@ class Enemy(var x:Integer, var y:Integer) {
     e match {
       case "left" =>
         dx = -5
-        extractImage("left-" + increaseFrame)
+        imageIcon = changeImageIcon(images("left-" + increaseFrame))
       case "right" =>
         dx = 5
-        extractImage("right-" + increaseFrame)
+        imageIcon = changeImageIcon(images("right-" + increaseFrame))
       case "up" =>
         dy = -5
-        extractImage("up-" + increaseFrame)
+        imageIcon = changeImageIcon(images("up-" + increaseFrame))
       case "down" =>
         dy = 5
-        extractImage("down-" + increaseFrame)
+        imageIcon = changeImageIcon(images("down-" + increaseFrame))
       case "stop" =>
         dx = 0
         dy = 0

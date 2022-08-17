@@ -1,5 +1,7 @@
 package com.politrons.sprites
 
+import com.politrons.sprites.SpriteUtils.{changeImageIcon, scaleImage}
+
 import java.awt.event.KeyEvent
 import java.awt.image.BufferedImage
 import java.awt.{Image, RenderingHints}
@@ -40,19 +42,6 @@ class Character(var dead:Boolean=false) {
     height = image.getHeight(null)
   }
 
-  private def scaleImage(srcImg: Image, w: Int, h: Int): Image = {
-    val resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB)
-    val g2 = resizedImg.createGraphics
-    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR)
-    g2.drawImage(srcImg, 0, 0, w, h, null)
-    g2.dispose()
-    resizedImg
-  }
-
-  private def extractImage(frame: String): Unit = {
-    imageIcon = new ImageIcon(scaleImage(images(frame).getImage, 40, 40))
-  }
-
   def move(): Unit = {
     if(dead){
       x=250
@@ -68,17 +57,17 @@ class Character(var dead:Boolean=false) {
     e.getKeyCode match {
       case KeyEvent.VK_LEFT =>
         dx = -2
-        extractImage("left-" + increaseFrame)
+        imageIcon = changeImageIcon(images("left-" + increaseFrame))
       case KeyEvent.VK_RIGHT =>
         dx = 2
-        extractImage("right-" + increaseFrame)
+        imageIcon = changeImageIcon(images("right-" + increaseFrame))
       case KeyEvent.VK_UP =>
         dy = -2
-        extractImage("up-" + increaseFrame)
+        imageIcon = changeImageIcon(images("up-" + increaseFrame))
       case KeyEvent.VK_DOWN =>
         dy = 2
-        extractImage("down-" + increaseFrame)
-      case key:_ => println(s"Key $key not implemented")
+        imageIcon = changeImageIcon(images("down-" + increaseFrame))
+      case _ => println(s"Key not implemented")
     }
   }
 
