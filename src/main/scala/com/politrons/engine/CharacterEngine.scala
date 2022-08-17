@@ -14,7 +14,7 @@ class CharacterEngine() extends JLabel with ActionListener {
   init()
 
   private def init(): Unit = {
-    addKeyListener(new KeyListener)
+    addKeyListener(new KeyListener(character))
     setFocusable(true)
     setIcon(character.imageIcon)
     setSize(this.getPreferredSize)
@@ -34,11 +34,11 @@ class CharacterEngine() extends JLabel with ActionListener {
   override def actionPerformed(e: ActionEvent): Unit = {
     character.move()
     setIcon(character.imageIcon)
-    println(s"Character Position X:${character.getX} Y:${character.getY}")
-    setLocation(character.getX, character.getY)
+    println(s"Character Position X:${character.x} Y:${character.y}")
+    setLocation(character.x, character.y)
   }
 
-  private class KeyListener extends KeyAdapter {
+  private class KeyListener(character: Character) extends KeyAdapter {
     override def keyReleased(e: KeyEvent): Unit = {
       character.keyReleased(e)
     }
@@ -47,4 +47,5 @@ class CharacterEngine() extends JLabel with ActionListener {
       character.keyPressed(e)
     }
   }
+
 }

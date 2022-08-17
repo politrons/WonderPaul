@@ -9,7 +9,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class EnemyEngine(var xPos: Integer,
+class EnemyEngine(var name:String,
+                  var xPos: Integer,
                   var yPos: Integer,
                   val movePattern: Seq[String]
                  ) extends JLabel {
@@ -44,7 +45,7 @@ class EnemyEngine(var xPos: Integer,
   private def setEnemyPosition(): Unit = {
     enemy.move()
     setIcon(enemy.imageIcon)
-    println(s"Enemy Position X:${enemy.x} Y:${enemy.y}")
+    println(s"$name Position X:${enemy.x} Y:${enemy.y}")
     setLocation(enemy.x, enemy.y)
   }
 }

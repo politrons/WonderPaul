@@ -11,8 +11,8 @@ class Character() {
   private var frame = 0
   private var dx = 0
   private var dy = 0
-  private var x = 250
-  private var y = 250
+  var x = 250
+  var y = 250
   private var width = 0
   private var height = 0
   var image: Image = null
@@ -57,10 +57,6 @@ class Character() {
     x += dx
     y += dy
   }
-
-  def getX: Int = x
-
-  def getY: Int = y
 
   def keyPressed(e: KeyEvent): Unit = {
     e.getKeyCode match {

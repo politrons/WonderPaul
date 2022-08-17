@@ -1,20 +1,22 @@
 package com.politrons
 
-import com.politrons.engine.{CharacterEngine, EnemyEngine}
+import com.politrons.engine.{CharacterEngine, EnemyEngine, HeartEngine}
 
 import java.awt._
 import javax.swing._
 import scala.collection.{Seq, immutable}
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 
-object Main extends App {
+object Level extends App {
   EventQueue.invokeLater(() => {
-    val ex = new Main()
+    val ex = new Level()
     ex.setVisible(true)
   })
 }
 
-class Main extends JFrame {
+class Level extends JFrame {
 
 
   val enemy1MovePattern: Seq[String] = immutable.List(
@@ -45,11 +47,20 @@ class Main extends JFrame {
   initGame()
 
   private def initGame(): Unit = {
-    this.add(new CharacterEngine)
-    this.add(new EnemyEngine(250, 400, enemy1MovePattern))
-    this.add(new EnemyEngine(700, 400, enemy2MovePattern))
-    this.add(new EnemyEngine(546, 162, enemy3MovePattern))
-    this.add(new Background, BorderLayout.CENTER)
+    val heart1 = new HeartEngine(100,10)
+    this.add(heart1)
+    val heart2 = new HeartEngine(70,10)
+    this.add(heart2)
+    val heart3 = new HeartEngine(40,10)
+    this.add(heart3)
+    val enemyEngine1 = new EnemyEngine("Enemy1", 250, 400, enemy1MovePattern)
+    this.add(enemyEngine1)
+    val enemyEngine2 = new EnemyEngine("Enemy1",700, 400, enemy2MovePattern)
+    this.add(enemyEngine2)
+    val enemyEngine3 = new EnemyEngine("Enemy1",546, 162, enemy3MovePattern)
+    this.add(enemyEngine3)
+    val characterEngine = new CharacterEngine
+    this.add(new Background(characterEngine), BorderLayout.CENTER)
     this.setResizable(false)
     this.pack()
     this.setVisible(true)
@@ -57,6 +68,33 @@ class Main extends JFrame {
     setLocationRelativeTo(null)
     setResizable(false)
     setDefaultCloseOperation(3)
+    collisionEngine(enemyEngine1, enemyEngine2, enemyEngine3, characterEngine)
+  }
 
+  private def collisionEngine(enemyEngine1: EnemyEngine,
+                              enemyEngine2: EnemyEngine,
+                              enemyEngine3: EnemyEngine,
+                              characterEngine: CharacterEngine) = {
+    Future {
+      val deviation = 10
+      while (true) {
+        val charX = characterEngine.character.x
+        val charY = characterEngine.character.y
+
+        val enemy1 = enemyEngine1.enemy
+        val enemy2 = enemyEngine2.enemy
+        val enemy3 = enemyEngine3.enemy
+
+        val xComp = Math.abs(charX - enemy1.x)
+        val yComp = Math.abs(charY - enemy1.y)
+        println(s"xComp:$xComp")
+        println(s"yComp:$yComp")
+
+        if (xComp <= deviation && yComp <= deviation) {
+          println("###############BOOOOOOOOOOMMMMM#################")
+        }
+        Thread.sleep(500)
+      }
+    }
   }
 }
