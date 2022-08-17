@@ -11,8 +11,6 @@ class Enemy(var x:Integer, var y:Integer) {
   private var frame = 0
   private var dx = 0
   private var dy = 0
-  private var width = 0
-  private var height = 0
   var image: Image = null
   var imageIcon: ImageIcon = null
 
@@ -34,8 +32,6 @@ class Enemy(var x:Integer, var y:Integer) {
     image = imageIcon.getImage
     image = scaleImage(image, 40, 40)
     imageIcon = new ImageIcon(image)
-    width = image.getWidth(null)
-    height = image.getHeight(null)
   }
 
   def move(): Unit = {

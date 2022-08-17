@@ -2,7 +2,6 @@ package com.politrons.engine
 
 import com.politrons.sprites.Character
 
-import java.awt._
 import java.awt.event.{ActionEvent, ActionListener, KeyAdapter, KeyEvent}
 import javax.swing._
 

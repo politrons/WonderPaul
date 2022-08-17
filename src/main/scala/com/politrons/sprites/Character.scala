@@ -11,10 +11,8 @@ class Character(var dead: Boolean = false) {
   private var frame = 0
   private var dx = 0
   private var dy = 0
-  var x = 250
-  var y = 250
-  private var width = 0
-  private var height = 0
+  var x = 540
+  var y = 78
   var image: Image = null
   var imageIcon: ImageIcon = null
 
@@ -36,8 +34,6 @@ class Character(var dead: Boolean = false) {
     image = imageIcon.getImage
     image = scaleImage(image, 40, 40)
     imageIcon = new ImageIcon(image)
-    width = image.getWidth(null)
-    height = image.getHeight(null)
   }
 
   val mapCollision = List(
@@ -51,8 +47,8 @@ class Character(var dead: Boolean = false) {
     if (!collision) {
       if (dead) {
         //Reset player position
-        x = 250
-        y = 250
+        x = 540
+        y = 78
         dead = false
       } else {
         x += dx

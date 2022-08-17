@@ -1,4 +1,4 @@
-package com.politrons
+package com.politrons.level
 
 import com.politrons.engine.CharacterEngine
 

@@ -1,21 +1,13 @@
-package com.politrons
+package com.politrons.level
 
 import com.politrons.engine.{CharacterEngine, EnemyEngine, GameOverEngine, HeartEngine}
-import com.politrons.sprites.{Enemy, GameOver}
+import com.politrons.sprites.Enemy
 
 import java.awt._
 import javax.swing._
 import scala.collection.{Seq, immutable}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-
-
-object Level extends App {
-  EventQueue.invokeLater(() => {
-    val ex = new Level()
-    ex.setVisible(true)
-  })
-}
 
 class Level extends JFrame {
 

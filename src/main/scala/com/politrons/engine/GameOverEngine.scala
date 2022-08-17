@@ -1,6 +1,6 @@
 package com.politrons.engine
 
-import com.politrons.sprites.{GameOver}
+import com.politrons.sprites.GameOver
 
 import javax.swing._
 

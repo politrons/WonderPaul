@@ -7,8 +7,6 @@ import javax.swing.ImageIcon
 
 class Heart(var x:Integer, var y:Integer) {
 
-  private var width = 0
-  private var height = 0
   var imageIcon: ImageIcon = new ImageIcon("src/main/resources/level/heart.png")
   var image: Image = imageIcon.getImage
 
@@ -17,8 +15,6 @@ class Heart(var x:Integer, var y:Integer) {
   private def loadImage(): Unit = {
     image = scaleImage(image, 40, 40)
     imageIcon = new ImageIcon(image)
-    width = image.getWidth(null)
-    height = image.getHeight(null)
   }
 
 }
