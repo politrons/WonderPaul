@@ -19,14 +19,14 @@ class Character() {
   var imageIcon: ImageIcon = null
 
   val images = Map(
-    "left-" + 1 -> new ImageIcon("src/main/resources/pirate-left-1.png"),
-    "left-" + 2 -> new ImageIcon("src/main/resources/pirate-left-2.png"),
-    "right-" + 1 -> new ImageIcon("src/main/resources/pirate-right-1.png"),
-    "right-" + 2 -> new ImageIcon("src/main/resources/pirate-right-2.png"),
-    "up-" + 1 -> new ImageIcon("src/main/resources/pirate-up-1.png"),
-    "up-" + 2 -> new ImageIcon("src/main/resources/pirate-up-2.png"),
-    "down-" + 1 -> new ImageIcon("src/main/resources/pirate-down-1.png"),
-    "down-" + 2 -> new ImageIcon("src/main/resources/pirate-down-2.png")
+    "left-" + 1 -> new ImageIcon("src/main/resources/character/pirate-left-1.png"),
+    "left-" + 2 -> new ImageIcon("src/main/resources/character/pirate-left-2.png"),
+    "right-" + 1 -> new ImageIcon("src/main/resources/character/pirate-right-1.png"),
+    "right-" + 2 -> new ImageIcon("src/main/resources/character/pirate-right-2.png"),
+    "up-" + 1 -> new ImageIcon("src/main/resources/character/pirate-up-1.png"),
+    "up-" + 2 -> new ImageIcon("src/main/resources/character/pirate-up-2.png"),
+    "down-" + 1 -> new ImageIcon("src/main/resources/character/pirate-down-1.png"),
+    "down-" + 2 -> new ImageIcon("src/main/resources/character/pirate-down-2.png")
   )
 
   loadImage()
