@@ -6,7 +6,7 @@ import java.awt.Image
 import java.awt.event.KeyEvent
 import javax.swing.ImageIcon
 
-class Character(var dead:Boolean=false) {
+class Character(var dead: Boolean = false) {
 
   private var frame = 0
   private var dx = 0
@@ -40,16 +40,41 @@ class Character(var dead:Boolean=false) {
     height = image.getHeight(null)
   }
 
+  val mapCollision = List(
+    Tuple2(320, Tuple2(360, 260))
+  )
+
+
   def move(): Unit = {
-    if(dead){
-      x=250
-      y=250
-      dead=false
-    }else{
-      x += dx
-      y += dy
+
+    val collision = checkCollisions()
+    if (!collision) {
+      if (dead) {
+        //Reset player position
+        x = 250
+        y = 250
+        dead = false
+      } else {
+        x += dx
+        y += dy
+      }
     }
   }
+
+  def checkCollisions(): Boolean = {
+    val tmpX = x + dx
+    val tmpY = y + dy
+    var collision = false
+
+    mapCollision.foreach(tuple => {
+      val colX = tuple._1;
+      val tupleY = tuple._2
+      collision = Math.abs(colX - tmpX) <= 10 && (tmpY <= tupleY._1) && (tmpY >= tupleY._2)
+      println(s"########### COLLISION:$collision")
+    })
+    collision
+  }
+
 
   def keyPressed(e: KeyEvent): Unit = {
     e.getKeyCode match {

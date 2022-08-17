@@ -1,7 +1,7 @@
 package com.politrons
 
-import com.politrons.engine.{CharacterEngine, EnemyEngine, HeartEngine}
-import com.politrons.sprites.Enemy
+import com.politrons.engine.{CharacterEngine, EnemyEngine, GameOverEngine, HeartEngine}
+import com.politrons.sprites.{Enemy, GameOver}
 
 import java.awt._
 import javax.swing._
@@ -49,6 +49,7 @@ class Level extends JFrame {
     "right", "right", "right", "right", "right", "right", "right", "right", "right", "right", "right", "right"
   )
 
+  val gameOver = new GameOverEngine()
   val heart1 = new HeartEngine(100, 10)
   val heart2 = new HeartEngine(70, 10)
   val heart3 = new HeartEngine(40, 10)
@@ -60,6 +61,7 @@ class Level extends JFrame {
   initGame()
 
   private def initGame(): Unit = {
+    this.add(gameOver)
     this.add(heart1)
     this.add(heart2)
     this.add(heart3)
@@ -81,9 +83,9 @@ class Level extends JFrame {
     Future {
       val deviation = 10
       while (true) {
-        checkCharacterCollision(deviation, enemyEngine1.enemy)
-        checkCharacterCollision(deviation, enemyEngine2.enemy)
-        checkCharacterCollision(deviation, enemyEngine3.enemy)
+        checkCharacterEnemyCollision(deviation, enemyEngine1.enemy)
+        checkCharacterEnemyCollision(deviation, enemyEngine2.enemy)
+        checkCharacterEnemyCollision(deviation, enemyEngine3.enemy)
         Thread.sleep(500)
       }
     }
@@ -95,7 +97,7 @@ class Level extends JFrame {
    * the character like dead.
    * In case we lose all hearts the game is over.
    */
-  private def checkCharacterCollision(deviation: Int, enemy1: Enemy): Unit = {
+  private def checkCharacterEnemyCollision(deviation: Int, enemy1: Enemy): Unit = {
     val charX = characterEngine.character.x
     val charY = characterEngine.character.y
     val xComp = Math.abs(charX - enemy1.x)
@@ -104,7 +106,7 @@ class Level extends JFrame {
       characterEngine.live match {
         case 3 => heart3.setVisible(false)
         case 2 => heart2.setVisible(false)
-        case 1 => heart1.setVisible(false)
+        case 1 => heart1.setVisible(false);gameOver.setVisible(true)
       }
       characterEngine.live -= 1
       characterEngine.character.dead = true
