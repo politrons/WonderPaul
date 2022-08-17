@@ -6,7 +6,7 @@ import java.awt.Image
 import java.awt.event.KeyEvent
 import javax.swing.ImageIcon
 
-class Character(var dead: Boolean = false) {
+class Character() {
 
   private var frame = 0
   private var dx = 0
@@ -45,15 +45,8 @@ class Character(var dead: Boolean = false) {
 
     val collision = checkCollisions()
     if (!collision) {
-      if (dead) {
-        //Reset player position
-        x = 540
-        y = 78
-        dead = false
-      } else {
-        x += dx
-        y += dy
-      }
+      x += dx
+      y += dy
     }
   }
 

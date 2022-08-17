@@ -2,6 +2,7 @@ package com.politrons.level
 
 import com.politrons.engine.{CharacterEngine, EnemyEngine, GameOverEngine, HeartEngine}
 import com.politrons.sprites.Enemy
+import com.politrons.sprites.SpriteUtils.scaleImage
 
 import java.awt._
 import javax.swing._
@@ -98,10 +99,24 @@ class Level extends JFrame {
       characterEngine.live match {
         case 3 => heart3.setVisible(false)
         case 2 => heart2.setVisible(false)
-        case 1 => heart1.setVisible(false);gameOver.setVisible(true)
+        case 1 => heart1.setVisible(false); gameOver.setVisible(true)
       }
       characterEngine.live -= 1
-      characterEngine.character.dead = true
+      resetCharacter()
+    }
+  }
+
+  /**
+   * Move character to the initial position and make an effect of reset
+   */
+  private def resetCharacter(): Unit = {
+    characterEngine.character.x = 540
+    characterEngine.character.y = 78
+    0 to 50 foreach { _ =>
+      characterEngine.setIcon(null)
+      Thread.sleep(10)
+      characterEngine.setIcon(characterEngine.character.imageIcon)
+      Thread.sleep(10)
     }
   }
 }
