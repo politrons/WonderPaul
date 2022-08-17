@@ -2,8 +2,7 @@ package com.politrons.sprites
 
 import com.politrons.sprites.SpriteUtils.{changeImageIcon, scaleImage}
 
-import java.awt.image.BufferedImage
-import java.awt.{Image, RenderingHints}
+import java.awt.Image
 import javax.swing.ImageIcon
 
 

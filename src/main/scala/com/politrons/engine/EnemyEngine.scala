@@ -2,7 +2,6 @@ package com.politrons.engine
 
 import com.politrons.sprites.Enemy
 
-import java.awt._
 import javax.swing._
 import scala.collection._
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -32,7 +31,7 @@ class EnemyEngine(var name:String,
         movePattern.foreach(move => {
           enemy.artificialIntelligenceKeyPressed(move)
           setEnemyPosition()
-          Thread.sleep(500)
+          Thread.sleep(300)
         })
       }
     }

@@ -2,11 +2,9 @@ package com.politrons.sprites
 
 import com.politrons.sprites.SpriteUtils.{changeImageIcon, scaleImage}
 
+import java.awt.Image
 import java.awt.event.KeyEvent
-import java.awt.image.BufferedImage
-import java.awt.{Image, RenderingHints}
 import javax.swing.ImageIcon
-
 
 class Character(var dead:Boolean=false) {
 
