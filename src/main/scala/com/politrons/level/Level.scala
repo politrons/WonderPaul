@@ -99,41 +99,13 @@ class Level extends JFrame {
     val yComp = Math.abs(charY - enemy1.y)
     if (xComp <= deviation && yComp <= deviation) {
       characterEngine.live match {
-        case 3 => removeHeart(heart3Engine, heart3Engine.heart.imageIcon)
-        case 2 => removeHeart(heart2Engine, heart2Engine.heart.imageIcon)
-        case 1 => removeHeart(heart1Engine, heart1Engine.heart.imageIcon); gameOverEngine.setVisible(true)
+        case 3 => heart3Engine.removeHeart()
+        case 2 => heart2Engine.removeHeart()
+        case 1 => heart1Engine.removeHeart(); gameOverEngine.setVisible(true)
       }
       characterEngine.live -= 1
-      resetCharacter()
+      characterEngine.resetCharacter()
     }
   }
 
-  /**
-   * Move character to the initial position and make an effect of reset
-   */
-  private def resetCharacter(): Unit = {
-    Future{
-      characterEngine.character.x = 540
-      characterEngine.character.y = 78
-      0 to 50 foreach { _ =>
-        characterEngine.setIcon(null)
-        Thread.sleep(10)
-        characterEngine.setIcon(characterEngine.character.imageIcon)
-        Thread.sleep(10)
-      }
-    }
-  }
-
-  private def removeHeart(engine:JLabel, imageIcon: ImageIcon): Unit = {
-    Future{
-      0 to 25 foreach { _ =>
-        engine.setIcon(null)
-        Thread.sleep(20)
-        engine.setIcon(imageIcon)
-        Thread.sleep(20)
-        engine.setIcon(null)
-      }
-
-    }
-  }
 }

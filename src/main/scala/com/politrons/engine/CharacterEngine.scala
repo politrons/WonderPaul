@@ -3,11 +3,15 @@ package com.politrons.engine
 import com.politrons.sprites.Character
 
 import java.awt.event.{ActionEvent, ActionListener, KeyAdapter, KeyEvent}
+import java.util.concurrent.Executors
 import javax.swing._
+import scala.concurrent.{ExecutionContext, Future}
 
 
 class CharacterEngine(val thunderboltEngine: ThunderboltEngine,
                       var live:Int=3) extends JLabel with ActionListener {
+
+  implicit val ec: ExecutionContext = ExecutionContext.fromExecutor(Executors.newFixedThreadPool(10))
 
   val character = new Character(thunderboltEngine)
 
@@ -41,6 +45,22 @@ class CharacterEngine(val thunderboltEngine: ThunderboltEngine,
 
     override def keyPressed(e: KeyEvent): Unit = {
       character.keyPressed(e)
+    }
+  }
+
+  /**
+   * Move character to the initial position and make an effect of reset
+   */
+  def resetCharacter(): Unit = {
+    Future{
+      character.x = 540
+      character.y = 78
+      0 to 50 foreach { _ =>
+        setIcon(null)
+        Thread.sleep(10)
+        setIcon(character.imageIcon)
+        Thread.sleep(10)
+      }
     }
   }
 

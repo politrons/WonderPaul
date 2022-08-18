@@ -8,11 +8,12 @@ import scala.collection._
 import scala.concurrent.{ExecutionContext, Future}
 
 
-class EnemyEngine(var name:String,
+class EnemyEngine(var name: String,
                   var xPos: Integer,
                   var yPos: Integer,
                   val movePattern: Seq[String],
-                  val thunderboltEngine:ThunderboltEngine
+                  val thunderboltEngine: ThunderboltEngine,
+                  var enemyAlive: Boolean = true
                  ) extends JLabel {
 
   implicit val ec: ExecutionContext = ExecutionContext.fromExecutor(Executors.newFixedThreadPool(10))
@@ -25,30 +26,35 @@ class EnemyEngine(var name:String,
     setFocusable(true)
     setIcon(enemy.imageIcon)
     setSize(this.getPreferredSize)
-    artificialIntelligenceAction()
+    movePatternEnemyAction()
   }
 
-  def artificialIntelligenceAction(): Future[Unit] = {
+  def movePatternEnemyAction(): Future[Unit] = {
     Future {
-      val deviation = 10
-      var enemyAlive=true
       while (enemyAlive) {
-        movePattern.foreach(move => {
-          enemy.applyEnemnyMovement(move)
-          //check collision
-          val charX =  thunderboltEngine.thunderbolt.x
-          val charY =  thunderboltEngine.thunderbolt.y
-          val xComp = Math.abs(charX - enemy.x)
-          val yComp = Math.abs(charY - enemy.y)
-          if (xComp <= deviation && yComp <= deviation) {
-            enemy.x=0
-            enemy.y=0
-            enemyAlive=false
-          }
-          setEnemyPosition()
-          Thread.sleep(100)
-        })
+        movePattern
+          .foreach(move => {
+            if (enemyAlive) {
+              enemy.applyEnemnyMovement(move)
+              setEnemyPosition()
+              checkThunderboltCollision()
+              Thread.sleep(100)
+            }
+          })
       }
+    }
+  }
+
+  private def checkThunderboltCollision(): Unit = {
+    val deviation = 10
+    val charX = thunderboltEngine.thunderbolt.x
+    val charY = thunderboltEngine.thunderbolt.y
+    val xComp = Math.abs(charX - enemy.x)
+    val yComp = Math.abs(charY - enemy.y)
+    if (xComp <= deviation && yComp <= deviation) {
+      setVisible(false)
+      setLocation(0, 0)
+      enemyAlive = false
     }
   }
 
