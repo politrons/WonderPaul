@@ -51,7 +51,7 @@ class CharacterEngine(val thunderboltEngine: ThunderboltEngine,
   /**
    * Move character to the initial position and make an effect of reset
    */
-  def resetCharacter(): Unit = {
+  def characterDeadAnimation(): Unit = {
     Future{
       character.x = 540
       character.y = 78

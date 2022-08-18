@@ -45,6 +45,13 @@ class EnemyEngine(var name: String,
     }
   }
 
+  private def setEnemyPosition(): Unit = {
+    enemy.move()
+    setIcon(enemy.imageIcon)
+    println(s"$name Position X:${enemy.x} Y:${enemy.y}")
+    setLocation(enemy.x, enemy.y)
+  }
+
   private def checkThunderboltCollision(): Unit = {
     val deviation = 10
     val charX = thunderboltEngine.thunderbolt.x
@@ -52,16 +59,24 @@ class EnemyEngine(var name: String,
     val xComp = Math.abs(charX - enemy.x)
     val yComp = Math.abs(charY - enemy.y)
     if (xComp <= deviation && yComp <= deviation) {
-      setVisible(false)
+      enemyDeadAnimation()
       setLocation(0, 0)
       enemyAlive = false
     }
   }
 
-  private def setEnemyPosition(): Unit = {
-    enemy.move()
-    setIcon(enemy.imageIcon)
-    println(s"$name Position X:${enemy.x} Y:${enemy.y}")
-    setLocation(enemy.x, enemy.y)
+  private def enemyDeadAnimation(): Unit = {
+      enemy.x = 540
+      enemy.y = 78
+      0 to 50 foreach { _ =>
+        setIcon(null)
+        Thread.sleep(10)
+        setIcon(enemy.imageIcon)
+        Thread.sleep(10)
+        setIcon(null)
+        Thread.sleep(10)
+      }
   }
+
+
 }

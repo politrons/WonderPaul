@@ -104,7 +104,7 @@ class Level extends JFrame {
         case 1 => heart1Engine.removeHeart(); gameOverEngine.setVisible(true)
       }
       characterEngine.live -= 1
-      characterEngine.resetCharacter()
+      characterEngine.characterDeadAnimation()
     }
   }
 
