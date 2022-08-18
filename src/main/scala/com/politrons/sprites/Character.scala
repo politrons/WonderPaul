@@ -41,10 +41,6 @@ class Character(thunderboltEngine: ThunderboltEngine,
     imageIcon = new ImageIcon(image)
   }
 
-  val mapCollision = List(
-    Tuple2(320, Tuple2(360, 260))
-  )
-
   def move(): Unit = {
     if (!isAreaAvailable) {
       x += dx
@@ -52,6 +48,14 @@ class Character(thunderboltEngine: ThunderboltEngine,
     }
   }
 
+  val mapCollision = List(
+    Tuple2(320, Tuple2(360, 260))
+  )
+
+  /**
+   * Check if the main character can go through over an area in the map.
+   * TODO:Work in progress
+   */
   private def isAreaAvailable: Boolean = {
     val tmpX = x + dx
     val tmpY = y + dy
@@ -60,6 +64,12 @@ class Character(thunderboltEngine: ThunderboltEngine,
       val tupleY = tuple._2
       return Math.abs(colX - tmpX) <= 10 && (tmpY <= tupleY._1) && (tmpY >= tupleY._2)
     })
+  }
+
+  private def increaseFrame(): Int = {
+    if (frame == 2) frame = 1
+    else frame += 1
+    frame
   }
 
   def keyPressed(e: KeyEvent): Unit = {
@@ -84,12 +94,6 @@ class Character(thunderboltEngine: ThunderboltEngine,
         thunderboltEngine.directionOfThunderbolt(orientation, x, y)
       case _ => println(s"Key not implemented")
     }
-  }
-
-  private def increaseFrame = {
-    if (frame == 2) frame = 1
-    else frame += 1
-    frame
   }
 
   def keyReleased(e: KeyEvent): Unit = {

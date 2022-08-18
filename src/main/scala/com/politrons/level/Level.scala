@@ -48,6 +48,9 @@ class Level extends JFrame {
     collisionEngine()
   }
 
+  /**
+   * As long as enemies are alive, we check constantly if any of the enemies of the map hit the main character
+   */
   private def collisionEngine() = {
     Future {
       val deviation = 10

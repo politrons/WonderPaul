@@ -7,7 +7,6 @@ import javax.swing._
 import scala.collection._
 import scala.concurrent.{ExecutionContext, Future}
 
-
 class EnemyEngine(var name: String,
                   var xPos: Integer,
                   var yPos: Integer,

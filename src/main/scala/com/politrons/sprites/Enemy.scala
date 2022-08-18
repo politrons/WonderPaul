@@ -61,7 +61,7 @@ class Enemy(var x:Integer, var y:Integer) {
     }
   }
 
-  private def increaseFrame = {
+  private def increaseFrame: Int = {
     if (frame == 2) frame = 1
     else frame += 1
     frame

@@ -2,6 +2,9 @@ package com.politrons.level
 
 import scala.collection.{Seq, immutable}
 
+/**
+ * Movement patterns for enemies
+ */
 object EnemyPatterns {
 
   val enemy1MovePattern: Seq[String] = immutable.List(
