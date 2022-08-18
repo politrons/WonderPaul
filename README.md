@@ -1,4 +1,4 @@
-# WonderPaul
+# ![My image](img/logo.png)
 
 Simple 2D Game base on ```Javax.Swing``` implemented in [Scala](https://www.scala-lang.org).
 

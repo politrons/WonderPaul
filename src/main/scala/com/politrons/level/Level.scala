@@ -41,7 +41,7 @@ class Level extends JFrame {
     this.setResizable(false)
     this.pack()
     this.setVisible(true)
-    setTitle("WonderPol")
+    setTitle("WonderPaul")
     setLocationRelativeTo(null)
     setResizable(false)
     setDefaultCloseOperation(3)
