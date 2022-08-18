@@ -1,18 +1,19 @@
 package com.politrons.sprites
 
+import com.politrons.engine.ThunderboltEngine
 import com.politrons.sprites.SpriteUtils.{changeImageIcon, scaleImage}
 
 import java.awt.Image
 import java.awt.event.KeyEvent
 import javax.swing.ImageIcon
 
-class Character() {
+class Character(thunderboltEngine: ThunderboltEngine,
+                var x: Integer = 540,
+                var y: Integer = 78) {
 
   private var frame = 0
   private var dx = 0
   private var dy = 0
-  var x = 540
-  var y = 78
   var image: Image = null
   var imageIcon: ImageIcon = null
 
@@ -40,7 +41,6 @@ class Character() {
     Tuple2(320, Tuple2(360, 260))
   )
 
-
   def move(): Unit = {
 
     val collision = checkCollisions()
@@ -64,7 +64,6 @@ class Character() {
     collision
   }
 
-
   def keyPressed(e: KeyEvent): Unit = {
     e.getKeyCode match {
       case KeyEvent.VK_LEFT =>
@@ -79,6 +78,8 @@ class Character() {
       case KeyEvent.VK_DOWN =>
         dy = 2
         imageIcon = changeImageIcon(images("down-" + increaseFrame))
+      case KeyEvent.VK_SPACE =>
+        thunderboltEngine.directionOfThunderbolt(x, y)
       case _ => println(s"Key not implemented")
     }
   }
@@ -95,6 +96,7 @@ class Character() {
       case KeyEvent.VK_RIGHT => dx = 0
       case KeyEvent.VK_UP => dy = 0
       case KeyEvent.VK_DOWN => dy = 0
+      case KeyEvent.VK_SPACE => ()
     }
   }
 }

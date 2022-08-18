@@ -11,4 +11,5 @@ class Background(characterEngine: CharacterEngine) extends JLabel {
   val imageIcon = new ImageIcon("src/main/resources/background.png")
   this.setIcon(imageIcon)
   this.add(characterEngine)
+
 }

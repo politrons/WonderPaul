@@ -2,10 +2,10 @@ package com.politrons.engine
 
 import com.politrons.sprites.Enemy
 
+import java.util.concurrent.Executors
 import javax.swing._
 import scala.collection._
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 
 class EnemyEngine(var name:String,
@@ -13,6 +13,8 @@ class EnemyEngine(var name:String,
                   var yPos: Integer,
                   val movePattern: Seq[String]
                  ) extends JLabel {
+
+  implicit val ec: ExecutionContext = ExecutionContext.fromExecutor(Executors.newFixedThreadPool(10))
 
   val enemy = new Enemy(xPos, yPos)
 

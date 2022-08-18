@@ -6,9 +6,10 @@ import java.awt.event.{ActionEvent, ActionListener, KeyAdapter, KeyEvent}
 import javax.swing._
 
 
-class CharacterEngine(var live:Int=3) extends JLabel with ActionListener {
+class CharacterEngine(val thunderboltEngine: ThunderboltEngine,
+                      var live:Int=3) extends JLabel with ActionListener {
 
-  val character = new Character()
+  val character = new Character(thunderboltEngine)
 
   init()
 
