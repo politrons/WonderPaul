@@ -1,46 +1,20 @@
 package com.politrons.level
 
 import com.politrons.engine._
+import com.politrons.level.EnemyPatterns.{enemy1MovePattern, enemy2MovePattern, enemy3MovePattern}
 import com.politrons.sprites.Enemy
 
 import java.awt._
 import java.util.concurrent.Executors
 import javax.swing._
-import scala.collection.{Seq, immutable}
 import scala.concurrent.{ExecutionContext, Future}
 
+/**
+ * Main JFrame class that contains all JLabel of the game known as [engines]
+ */
 class Level extends JFrame {
 
   implicit val ec: ExecutionContext = ExecutionContext.fromExecutor(Executors.newFixedThreadPool(10))
-
-  val enemy1MovePattern: Seq[String] = immutable.List(
-    "left", "left", "left", "left", "left", "left", "left", "left", "left", "left", "left", "left",
-    "left", "left", "left", "left", "left", "left", "left", "left", "left", "left", "left", "left",
-    "right", "right", "right", "right", "right", "right", "right", "right", "right", "right", "right", "right",
-    "right", "right", "right", "right", "right", "right", "right", "right", "right", "right", "right", "right"
-  )
-
-  val enemy2MovePattern: Seq[String] = immutable.List(
-    "down", "down", "down", "down", "down", "down", "down", "down", "down", "down", "down", "down",
-    "down", "down", "down", "down", "down", "down", "down", "down", "down", "down", "down", "down",
-    "up", "up", "up", "up", "up", "up", "up", "up", "up", "up", "up", "up",
-    "up", "up", "up", "up", "up", "up", "up", "up", "up", "up", "up", "up"
-  )
-
-  val enemy3MovePattern: Seq[String] = immutable.List(
-    "stop",
-    "down", "down", "down", "down", "down", "down", "down", "down", "down", "down", "down", "down",
-    "down", "down", "down", "down", "down", "down", "down", "down", "down", "down", "down", "down",
-    "down", "down", "down", "down", "down", "down", "down", "down", "down", "down", "down", "down",
-    "up", "up", "up", "up", "up", "up", "up", "up", "up", "up", "up", "up",
-    "up", "up", "up", "up", "up", "up", "up", "up", "up", "up", "up", "up",
-    "up", "up", "up", "up", "up", "up", "up", "up", "up", "up", "up", "up",
-    "stop",
-    "left", "left", "left", "left", "left", "left", "left", "left", "left", "left", "left", "left",
-    "left", "left", "left", "left", "left", "left", "left", "left", "left", "left", "left", "left",
-    "right", "right", "right", "right", "right", "right", "right", "right", "right", "right", "right", "right",
-    "right", "right", "right", "right", "right", "right", "right", "right", "right", "right", "right", "right"
-  )
 
   val thunderboltEngine = new ThunderboltEngine()
   val gameOverEngine = new GameOverEngine()
@@ -77,11 +51,11 @@ class Level extends JFrame {
   private def collisionEngine() = {
     Future {
       val deviation = 10
-      while (true) {
+      while (enemyEngine1.enemyAlive && enemyEngine2.enemyAlive && enemyEngine3.enemyAlive) {
         checkCharacterEnemyCollision(deviation, enemyEngine1.enemy)
         checkCharacterEnemyCollision(deviation, enemyEngine2.enemy)
         checkCharacterEnemyCollision(deviation, enemyEngine3.enemy)
-        Thread.sleep(500)
+        Thread.sleep(100)
       }
     }
   }

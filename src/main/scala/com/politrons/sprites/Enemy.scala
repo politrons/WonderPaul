@@ -5,7 +5,9 @@ import com.politrons.sprites.SpriteUtils.{changeImageIcon, scaleImage}
 import java.awt.Image
 import javax.swing.ImageIcon
 
-
+/**
+ * All logic related with the movement of the sprite [Enemy]
+ */
 class Enemy(var x:Integer, var y:Integer) {
 
   private var frame = 0

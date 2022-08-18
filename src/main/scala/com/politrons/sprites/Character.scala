@@ -7,6 +7,9 @@ import java.awt.Image
 import java.awt.event.KeyEvent
 import javax.swing.ImageIcon
 
+/**
+ * All logic related with the movement of the sprite [Character]
+ */
 class Character(thunderboltEngine: ThunderboltEngine,
                 var x: Integer = 540,
                 var y: Integer = 78) {
