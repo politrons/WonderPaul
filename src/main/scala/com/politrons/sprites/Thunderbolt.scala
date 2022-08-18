@@ -8,7 +8,6 @@ import javax.swing.ImageIcon
 
 class Thunderbolt(var x: Integer = 0, var y: Integer = 0) {
 
-
   var imageIcon: ImageIcon = _
   var image: Image = _
 

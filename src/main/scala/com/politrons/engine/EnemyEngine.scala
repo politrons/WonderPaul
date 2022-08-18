@@ -35,7 +35,7 @@ class EnemyEngine(var name: String,
         movePattern
           .foreach(move => {
             if (enemyAlive) {
-              enemy.applyEnemnyMovement(move)
+              enemy.applyEnemyMovement(move)
               setEnemyPosition()
               checkThunderboltCollision()
               Thread.sleep(100)

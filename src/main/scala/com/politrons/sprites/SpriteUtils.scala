@@ -19,5 +19,4 @@ object SpriteUtils {
      new ImageIcon(scaleImage(imageIcon.getImage, 40, 40))
   }
 
-
 }

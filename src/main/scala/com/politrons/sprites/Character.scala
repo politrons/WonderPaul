@@ -43,26 +43,20 @@ class Character(thunderboltEngine: ThunderboltEngine,
   )
 
   def move(): Unit = {
-
-    val collision = checkCollisions()
-    if (!collision) {
+    if (!isAreaAvailable) {
       x += dx
       y += dy
     }
   }
 
-  def checkCollisions(): Boolean = {
+  private def isAreaAvailable: Boolean = {
     val tmpX = x + dx
     val tmpY = y + dy
-    var collision = false
-
-    mapCollision.foreach(tuple => {
+     mapCollision.exists(tuple => {
       val colX = tuple._1;
       val tupleY = tuple._2
-      collision = Math.abs(colX - tmpX) <= 10 && (tmpY <= tupleY._1) && (tmpY >= tupleY._2)
-      println(s"########### COLLISION:$collision")
+      return Math.abs(colX - tmpX) <= 10 && (tmpY <= tupleY._1) && (tmpY >= tupleY._2)
     })
-    collision
   }
 
   def keyPressed(e: KeyEvent): Unit = {

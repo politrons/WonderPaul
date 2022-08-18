@@ -39,7 +39,7 @@ class Enemy(var x:Integer, var y:Integer) {
     y += dy
   }
 
-  def applyEnemnyMovement(e: String): Unit = {
+  def applyEnemyMovement(e: String): Unit = {
     e match {
       case "left" =>
         dx = -5
