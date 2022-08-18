@@ -47,9 +47,9 @@ class Level extends JFrame {
   val heart1Engine = new HeartEngine(100, 10)
   val heart2Engine = new HeartEngine(70, 10)
   val heart3Engine = new HeartEngine(40, 10)
-  val enemyEngine1 = new EnemyEngine("Enemy1", 250, 400, enemy1MovePattern)
-  val enemyEngine2 = new EnemyEngine("Enemy1", 700, 400, enemy2MovePattern)
-  val enemyEngine3 = new EnemyEngine("Enemy1", 546, 162, enemy3MovePattern)
+  val enemyEngine1 = new EnemyEngine("Enemy1", 250, 400, enemy1MovePattern,thunderboltEngine)
+  val enemyEngine2 = new EnemyEngine("Enemy1", 700, 400, enemy2MovePattern,thunderboltEngine)
+  val enemyEngine3 = new EnemyEngine("Enemy1", 546, 162, enemy3MovePattern,thunderboltEngine)
   val characterEngine = new CharacterEngine(thunderboltEngine)
 
   initGame()

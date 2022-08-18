@@ -39,7 +39,7 @@ class Enemy(var x:Integer, var y:Integer) {
     y += dy
   }
 
-  def artificialIntelligenceKeyPressed(e: String): Unit = {
+  def applyEnemnyMovement(e: String): Unit = {
     e match {
       case "left" =>
         dx = -5

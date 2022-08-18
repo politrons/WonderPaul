@@ -21,10 +21,9 @@ class ThunderboltEngine() extends JLabel {
     setLocation(thunderbolt.x, thunderbolt.y)
   }
 
-  def directionOfThunderbolt(orientation:String,characterX: Int, characterY: Int): Future[Unit] = {
+  def directionOfThunderbolt(orientation:String,characterX: Int, characterY: Int): Unit = {
     val thunderboltDuration = System.currentTimeMillis() + 5000
     Future {
-      //TODO:Refactor Hit someone or end of map
       thunderbolt.x = characterX
       thunderbolt.y = characterY
       while (thunderboltDuration > System.currentTimeMillis()) {

@@ -11,7 +11,8 @@ import scala.concurrent.{ExecutionContext, Future}
 class EnemyEngine(var name:String,
                   var xPos: Integer,
                   var yPos: Integer,
-                  val movePattern: Seq[String]
+                  val movePattern: Seq[String],
+                  val thunderboltEngine:ThunderboltEngine
                  ) extends JLabel {
 
   implicit val ec: ExecutionContext = ExecutionContext.fromExecutor(Executors.newFixedThreadPool(10))
@@ -29,11 +30,23 @@ class EnemyEngine(var name:String,
 
   def artificialIntelligenceAction(): Future[Unit] = {
     Future {
-      while (true) {
+      val deviation = 10
+      var enemyAlive=true
+      while (enemyAlive) {
         movePattern.foreach(move => {
-          enemy.artificialIntelligenceKeyPressed(move)
+          enemy.applyEnemnyMovement(move)
+          //check collision
+          val charX =  thunderboltEngine.thunderbolt.x
+          val charY =  thunderboltEngine.thunderbolt.y
+          val xComp = Math.abs(charX - enemy.x)
+          val yComp = Math.abs(charY - enemy.y)
+          if (xComp <= deviation && yComp <= deviation) {
+            enemy.x=0
+            enemy.y=0
+            enemyAlive=false
+          }
           setEnemyPosition()
-          Thread.sleep(300)
+          Thread.sleep(100)
         })
       }
     }
