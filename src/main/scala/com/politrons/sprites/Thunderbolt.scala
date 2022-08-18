@@ -6,10 +6,18 @@ import java.awt.Image
 import javax.swing.ImageIcon
 
 
-class Thunderbolt(var x:Integer=0, var y:Integer=0) {
+class Thunderbolt(var x: Integer = 0, var y: Integer = 0) {
 
-  var imageIcon: ImageIcon = new ImageIcon("src/main/resources/level/thunderbolt.png")
-  var image: Image = imageIcon.getImage
+
+  var imageIcon: ImageIcon = _
+  var image: Image = _
+
+  val images = Map(
+    "left" -> new ImageIcon("src/main/resources/thunderbolt/thunderbolt-left.png"),
+    "right" -> new ImageIcon("src/main/resources/thunderbolt/thunderbolt-right.png"),
+    "up" -> new ImageIcon("src/main/resources/thunderbolt/thunderbolt-up.png"),
+    "down" -> new ImageIcon("src/main/resources/thunderbolt/thunderbolt-down.png"),
+  )
 
   loadImage()
 

@@ -21,18 +21,23 @@ class ThunderboltEngine() extends JLabel {
     setLocation(thunderbolt.x, thunderbolt.y)
   }
 
-  def directionOfThunderbolt(characterX: Int, characterY: Int): Future[Unit] = {
+  def directionOfThunderbolt(orientation:String,characterX: Int, characterY: Int): Future[Unit] = {
+    val thunderboltDuration = System.currentTimeMillis() + 5000
     Future {
       //TODO:Refactor Hit someone or end of map
       thunderbolt.x = characterX
       thunderbolt.y = characterY
-      while (true) {
+      while (thunderboltDuration > System.currentTimeMillis()) {
         println(s"########### Thunderbolt X:${thunderbolt.x} Y:${thunderbolt.y}")
-
-        thunderbolt.x += 10
+        orientation match {
+          case "left" => thunderbolt.x -= 10
+          case "right" => thunderbolt.x += 10
+          case "up" => thunderbolt.y -= 10
+          case "down" => thunderbolt.y += 10
+        }
+        thunderbolt.imageIcon = thunderbolt.images(orientation)
         setThunderboltPosition()
         Thread.sleep(100)
-        //        thunderbolt.y = characterY + 2
       }
     }
   }

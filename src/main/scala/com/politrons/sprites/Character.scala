@@ -14,8 +14,9 @@ class Character(thunderboltEngine: ThunderboltEngine,
   private var frame = 0
   private var dx = 0
   private var dy = 0
-  var image: Image = null
-  var imageIcon: ImageIcon = null
+  var orientation = ""
+  var image: Image = _
+  var imageIcon: ImageIcon = _
 
   val images = Map(
     "left-" + 1 -> new ImageIcon("src/main/resources/character/pirate-left-1.png"),
@@ -68,18 +69,22 @@ class Character(thunderboltEngine: ThunderboltEngine,
     e.getKeyCode match {
       case KeyEvent.VK_LEFT =>
         dx = -2
-        imageIcon = changeImageIcon(images("left-" + increaseFrame))
+        orientation = "left"
+        imageIcon = changeImageIcon(images(s"$orientation-" + increaseFrame))
       case KeyEvent.VK_RIGHT =>
         dx = 2
-        imageIcon = changeImageIcon(images("right-" + increaseFrame))
+        orientation = "right"
+        imageIcon = changeImageIcon(images(s"$orientation-" + increaseFrame))
       case KeyEvent.VK_UP =>
         dy = -2
-        imageIcon = changeImageIcon(images("up-" + increaseFrame))
+        orientation = "up"
+        imageIcon = changeImageIcon(images(s"$orientation-" + increaseFrame))
       case KeyEvent.VK_DOWN =>
         dy = 2
-        imageIcon = changeImageIcon(images("down-" + increaseFrame))
+        orientation = "down"
+        imageIcon = changeImageIcon(images(s"$orientation-" + increaseFrame))
       case KeyEvent.VK_SPACE =>
-        thunderboltEngine.directionOfThunderbolt(x, y)
+        thunderboltEngine.directionOfThunderbolt(orientation, x, y)
       case _ => println(s"Key not implemented")
     }
   }
