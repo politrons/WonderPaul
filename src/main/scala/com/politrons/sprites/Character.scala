@@ -42,28 +42,45 @@ class Character(thunderboltEngine: ThunderboltEngine,
   }
 
   def move(): Unit = {
-    if (!isAreaAvailable) {
+    if (!isAreaNotAvailable) {
       x += dx
       y += dy
     }
   }
 
-  val mapCollision = List(
-    Tuple2(320, Tuple2(360, 260))
+  val xMapCollision = List(
+    Tuple2(320, Tuple2(360, 200)),
+    Tuple2(380, Tuple2(60, 160)),
+    Tuple2(376, Tuple2(446, 506)),
+    Tuple2(726, Tuple2(342, 400)),
+    Tuple2(458, Tuple2(310, 352)),
+
+
+  )
+
+  val yMapCollision = List(
+    Tuple2(300, Tuple2(400, 460))
+
   )
 
   /**
    * Check if the main character can go through over an area in the map.
    * TODO:Work in progress
    */
-  private def isAreaAvailable: Boolean = {
+  private def isAreaNotAvailable: Boolean = {
     val tmpX = x + dx
     val tmpY = y + dy
-     mapCollision.exists(tuple => {
+    val xCollision: Boolean = xMapCollision.exists(tuple => {
       val colX = tuple._1;
       val tupleY = tuple._2
       return Math.abs(colX - tmpX) <= 10 && (tmpY <= tupleY._1) && (tmpY >= tupleY._2)
     })
+    val yCollision: Boolean = yMapCollision.exists(tuple => {
+      val colY = tuple._1;
+      val tupleX = tuple._2
+      return Math.abs(colY - tmpY) <= 10 && (tmpX <= tupleX._1) && (tmpX >= tupleX._2)
+    })
+    xCollision || yCollision
   }
 
   private def increaseFrame(): Int = {

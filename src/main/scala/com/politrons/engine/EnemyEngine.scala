@@ -47,7 +47,6 @@ class EnemyEngine(var name: String,
   private def setEnemyPosition(): Unit = {
     enemy.move()
     setIcon(enemy.imageIcon)
-    println(s"$name Position X:${enemy.x} Y:${enemy.y}")
     setLocation(enemy.x, enemy.y)
   }
 
