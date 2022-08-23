@@ -1,5 +1,7 @@
 # ![My image](img/logo.png)
 
+Is this repo useful? Please ⭑Star this repository and share the love.
+
 Simple 2D Game base on ```Javax.Swing``` implemented in [Scala](https://www.scala-lang.org).
 
 The background image has been copy from this [link](https://cainos.itch.io/pixel-art-top-down-basic)
