@@ -57,35 +57,29 @@ class EnemyEngine(var name: String,
   }
 
   /**
-   * As long as enemies are alive, we check constantly if any of the enemies of the map hit the main character
-   */
-  private def collisionEngine() = {
-    Future {
-      val deviation = 10
-      while (enemyAlive) {
-        checkCharacterEnemyCollision(deviation)
-        Thread.sleep(100)
-      }
-    }
-  }
-
-  /**
+   * As long as enemies are alive, we check constantly if any of the enemies of the map hit the main character.
    * Function to check if the character collision with an enemy.
    * In case of collision we reduce one heart in the level, and we set
    * the character like dead.
    * In case we lose all hearts the game is over.
    */
-  private def checkCharacterEnemyCollision(deviation: Int): Unit = {
-    val xComp = Math.abs(characterEngine.character.x - enemy.x)
-    val yComp = Math.abs(characterEngine.character.y - enemy.y)
-    if (xComp <= deviation && yComp <= deviation) {
-      characterEngine.live match {
-        case 3 => heart3Engine.removeHeart()
-        case 2 => heart2Engine.removeHeart()
-        case 1 => heart1Engine.removeHeart(); gameOverEngine.setVisible(true)
+  private def collisionEngine() = {
+    Future {
+      val deviation = 10
+      while (enemyAlive) {
+        val xComp = Math.abs(characterEngine.character.x - enemy.x)
+        val yComp = Math.abs(characterEngine.character.y - enemy.y)
+        if (xComp <= deviation && yComp <= deviation) {
+          characterEngine.live match {
+            case 3 => heart3Engine.removeHeart()
+            case 2 => heart2Engine.removeHeart()
+            case 1 => heart1Engine.removeHeart(); gameOverEngine.setVisible(true)
+          }
+          characterEngine.live -= 1
+          characterEngine.characterDeadAnimation()
+        }
+        Thread.sleep(100)
       }
-      characterEngine.live -= 1
-      characterEngine.characterDeadAnimation()
     }
   }
 
